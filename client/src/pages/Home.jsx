@@ -43,6 +43,18 @@ const Home = () => {
     fetchPosts();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+
+    setTimeout(() => {
+      const searchResults = allPosts.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.prompt.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }, 500);
+  };
+
   return (
     <section className="max-w-7xl mx-auto">
       <div>
