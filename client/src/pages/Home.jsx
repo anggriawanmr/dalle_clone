@@ -14,6 +14,8 @@ const Home = () => {
   const [allPosts, setAllPosts] = useState(null);
 
   const [searchText, setSearchText] = useState('');
+  const [searchedResults, setSearchedResults] = useState(null);
+  const [searchTimeout, setSearchTimeout] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,13 +48,17 @@ const Home = () => {
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
 
-    setTimeout(() => {
-      const searchResults = allPosts.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.prompt.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }, 500);
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResults = allPosts.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
+
+        setSearchedResults(searchResults);
+      }, 500)
+    );
   };
 
   return (
